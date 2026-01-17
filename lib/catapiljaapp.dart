@@ -8,6 +8,7 @@ import 'package:http/http.dart' as httpClient;
 part 'cloudapp/cloudapp.dart';
 part 'container/oscontainer.dart';
 part 'server/handlers/httpgetresourcenotfounderror.dart';
+part 'server/handlers/httpgethandler.dart';
 part 'server/handlers/httpposthandler.dart';
 part 'server/handlers/httprequesthandler.dart';
 part 'server/routers/router.dart';

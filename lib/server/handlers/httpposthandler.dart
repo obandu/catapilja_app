@@ -18,7 +18,7 @@ class HttpPostHandler implements HttpRequestHandler {
         );
 
         String postResponse = jsonEncode(
-          handleMethodRequest(req.uri.toString(), params),
+          handleRequestMethod(req.uri.toString(), params),
         ).toString();
 
         ServerLog.doServerLog(
@@ -41,7 +41,7 @@ class HttpPostHandler implements HttpRequestHandler {
     }
   }
 
-  dynamic handleMethodRequest(
+  dynamic handleRequestMethod(
     String requestName,
     Map<String, String> parameters,
   ) {

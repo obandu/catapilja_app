@@ -1,27 +1,27 @@
 part of catapiljaapp;
 
 class CloudApp {
-  final Router _router;
-  final String _applicationName;
-  final String _registrationURL;
+  final Router router;
+  final String applicationName;
+  String? registrationURL;
   static bool _isRegistered = false;
 
   CloudApp({
-    required Router router,
-    required String applicationName,
-    required String registrationURL,
-  }) : _router = router,
-       _applicationName = applicationName,
-       _registrationURL = registrationURL;
+    required this.router,
+    required this.applicationName,
+    this.registrationURL,
+  });
 
   Future<void> start(InternetAddress address, int port) async {
     var server = await HttpServer.bind(address, port);
     ServerLog.doServerLog(
-      "At $_applicationName.cloudapp.start(): server started and waiting for requests",
+      "At $applicationName.cloudapp.start(): server started and waiting for requests",
     );
-    runRegistrationRequest();
+    if (registrationURL != null) {
+      runRegistrationRequest();
+    }
     await for (var request in server) {
-      _router.route(request);
+      router.route(request);
     }
   }
 
@@ -49,11 +49,11 @@ class CloudApp {
         "At $_myname.cloudapp.runRegistrationRequest(): $timer.tick",
       );
       ServerLog.doServerLog(
-        "At $_myname.cloudapp.runRegistrationRequest(): FROM $_applicationName: Another call to register the server. Registration status is $_isRegistered",
+        "At $_myname.cloudapp.runRegistrationRequest(): FROM $applicationName: Another call to register the server. Registration status is $_isRegistered",
       );
       try {
         final response = await httpClient.post(
-          Uri.parse(_registrationURL),
+          Uri.parse(registrationURL!.toString()),
           body: {
             "action": "registerme",
             "application_name": _myname,
@@ -66,11 +66,11 @@ class CloudApp {
           headers: headers,
         );
         ServerLog.doServerLog(
-          "At $_myname.cloudapp.runRegistrationRequest(): $_applicationName: registration response: ${response.body}",
+          "At $_myname.cloudapp.runRegistrationRequest(): $applicationName: registration response: ${response.body}",
         );
       } catch (e) {
         ServerLog.doServerLog(
-          "At $_myname.cloudapp.runRegistrationRequest(): $_applicationName:Error during call for application registration: $e",
+          "At $_myname.cloudapp.runRegistrationRequest(): $applicationName:Error during call for application registration: $e",
         );
       }
     });

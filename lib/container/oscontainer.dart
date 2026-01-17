@@ -28,4 +28,13 @@ class OSContainer {
     }
     return _website;
   }
+
+  static String get applicationName {
+    String _applicationName = Platform.environment['MYNAME'].toString();
+    if (_applicationName.toUpperCase() == "NULL") {
+      return "NONAME";
+    }
+
+    return _applicationName;
+  }
 }

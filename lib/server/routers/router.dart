@@ -39,9 +39,19 @@ class Router {
         return handler.handle(request);
       }
     }
+
+    var method = request.method;
+    var uri = request.uri;
+
+    ServerLog.doServerLog(
+      "A request has been made, but it is not of a supported method - $method. The URI is $uri",
+    );
+
     request.response
-      ..statusCode = HttpStatus.methodNotAllowed
-      ..write("{\"httpmethod\" : \"${request.headers}\"}")
+      ..statusCode = HttpStatus.ok
+      ..write(
+        "{\"response\" : \"The requested method $method is currently not suppored by this application.\"}",
+      )
       ..close();
   }
 }

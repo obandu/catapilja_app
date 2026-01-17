@@ -1,6 +1,6 @@
 name: catapiljaapp
 description: The Library for Catapilja cloud apps
-version: 0.13.16
+version: 0.13.17
 repository: https://github.com/obandu/catapilja_app
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
