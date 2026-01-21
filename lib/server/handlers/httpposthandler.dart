@@ -18,7 +18,7 @@ class HttpPostHandler implements HttpRequestHandler {
         );
 
         String postResponse = jsonEncode(
-          handleRequestMethod(req.uri.toString(), params),
+          handleRequestMethod(httpRequest: req, parameters: params),
         ).toString();
 
         ServerLog.doServerLog(
@@ -41,11 +41,14 @@ class HttpPostHandler implements HttpRequestHandler {
     }
   }
 
-  dynamic handleRequestMethod(
-    String requestName,
-    Map<String, String> parameters,
-  ) {
+  dynamic handleRequestMethod({
+    required HttpRequest httpRequest,
+    required Map<String, String> parameters,
+  }) {
     String _myname = Platform.environment['MYNAME'].toString();
+
+    String requestName = httpRequest.uri.toString();
+
     ServerLog.doServerLog(
       "At $_myname.HttpPostHandler.handleMethodRequest():, we are here ... with $requestName and params ${parameters.toString()}",
     );

@@ -17,6 +17,9 @@ class CloudApp {
     ServerLog.doServerLog(
       "At $applicationName.cloudapp.start(): server started and waiting for requests",
     );
+
+    prepareEnvironment();
+
     if (registrationURL != null) {
       runRegistrationRequest();
     }
@@ -28,6 +31,8 @@ class CloudApp {
   static void setIsRegistered(bool value) {
     _isRegistered = value;
   }
+
+  void prepareEnvironment() async {}
 
   void runRegistrationRequest() {
     // add a polling function here that calls another server every 1 minute

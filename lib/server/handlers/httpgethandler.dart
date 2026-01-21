@@ -45,7 +45,10 @@ class HttpGetHandler implements HttpRequestHandler {
 
       String _myname = Platform.environment['MYNAME'].toString();
 
-      handleRequestMethod(req.uri.toString(), {}).then((getResponse) {
+      handleRequestMethod(httpRequest: req, parameters: {}).then((getResponse) {
+        if (getResponse == null) {
+          return;
+        }
         ServerLog.doServerLog(
           "At $_myname.HttpGetHandler.handle(): The get response from ${req.uri.toString()} is $getResponse",
         );
@@ -62,11 +65,11 @@ class HttpGetHandler implements HttpRequestHandler {
     }
   }
 
-  Future<String?> handleRequestMethod(
-    String requestName,
-    Map<String, String> parameters,
-  ) async {
+  Future<String?> handleRequestMethod({
+    required HttpRequest httpRequest,
+    required Map<String, String> parameters,
+  }) async {
     String _myname = Platform.environment['MYNAME'].toString();
-    return "{'status' : 'no implementation','message' : 'At $_myname.HttpGetHandler.handleMethodRequest():, we are here ... with $requestName and params ${parameters.toString()}'}";
+    return "{'status' : 'no implementation','message' : 'At $_myname.HttpGetHandler.handleMethodRequest():, we are here ... with ${httpRequest.uri} and params ${parameters.toString()}'}";
   }
 }
