@@ -46,4 +46,17 @@ class DateUtils {
       "second": second,
     };
   }
+
+  static String getMyTimeStamp() {
+    return DateTime.timestamp().toString();
+  }
+
+  static String formatCustomAgo(Duration d) {
+    if (d.inDays > 365) return "${(d.inDays / 365).floor()} years ago";
+    if (d.inDays > 30) return "${(d.inDays / 30).floor()} months ago";
+    if (d.inDays > 0) return "${d.inDays} days ago";
+    if (d.inHours > 0) return "${d.inHours} hours ago";
+    if (d.inMinutes > 0) return "${d.inMinutes} minutes ago";
+    return "just now";
+  }
 }
