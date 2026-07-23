@@ -1,14 +1,14 @@
 part of catapiljaapp;
 
-class UserRoleDefinitionsEntity {
+class UserRoleApplicationPermissionsEntity {
   final String id;
   final String roleId;
   final String appModuleId;
   final String accessRight;
-  final String appModuleName; // New
-  final String appModuleDesc; // New
+  final String appModuleName;
+  final String appModuleDesc;
 
-  UserRoleDefinitionsEntity({
+  UserRoleApplicationPermissionsEntity({
     required this.id,
     required this.roleId,
     required this.appModuleId,
@@ -17,8 +17,10 @@ class UserRoleDefinitionsEntity {
     required this.appModuleDesc,
   });
 
-  factory UserRoleDefinitionsEntity.fromMap(Map<String, dynamic> map) {
-    return UserRoleDefinitionsEntity(
+  factory UserRoleApplicationPermissionsEntity.fromMap(
+    Map<String, dynamic> map,
+  ) {
+    return UserRoleApplicationPermissionsEntity(
       id: map['user_role_assignment_id'] as String,
       roleId: map['user_role_id'] as String,
       appModuleId: map['app_module_id'] as String,
@@ -28,12 +30,12 @@ class UserRoleDefinitionsEntity {
     );
   }
 
-  UserRoleDefinitionsEntity copyWith({
+  UserRoleApplicationPermissionsEntity copyWith({
     String? accessRight,
     String? appModuleName,
     String? appModuleDesc,
   }) {
-    return UserRoleDefinitionsEntity(
+    return UserRoleApplicationPermissionsEntity(
       id: id,
       roleId: roleId,
       appModuleId: appModuleId,
@@ -46,14 +48,13 @@ class UserRoleDefinitionsEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserRoleDefinitionsEntity &&
+      other is UserRoleApplicationPermissionsEntity &&
           runtimeType == other.runtimeType &&
           appModuleId == other.appModuleId;
 
   @override
   int get hashCode => id.hashCode;
 
-  // Add this method inside your UserRoleDefinitionsEntity class
   Map<String, dynamic> toMap() {
     return {
       'user_role_assignment_id': id,
@@ -65,7 +66,6 @@ class UserRoleDefinitionsEntity {
     };
   }
 
-  /// Now returns a human-readable string for the UI
   @override
   String toString() {
     return "$appModuleName: $accessRight";

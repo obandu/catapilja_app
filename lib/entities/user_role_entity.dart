@@ -3,23 +3,23 @@ part of catapiljaapp;
 class UserRoleEntity {
   final String id;
   final String name;
-  final List<UserRoleDefinitionsEntity> definitions;
+  final List<UserRoleApplicationPermissionsEntity> appPermissions;
 
   UserRoleEntity({
     required this.id,
     required this.name,
-    this.definitions = const [],
+    this.appPermissions = const [],
   });
 
   factory UserRoleEntity.fromMap(Map<String, dynamic> map) {
     return UserRoleEntity(
       id: map['user_role_id'] as String,
       name: map['user_role_name'] as String,
-      // Maps nested definitions if they exist in the JSON
-      definitions:
-          (map['definitions'] as List<dynamic>?)
+      // Maps nested appPermissions if they exist in the JSON
+      appPermissions:
+          (map['permissions'] as List<dynamic>?)
               ?.map(
-                (e) => UserRoleDefinitionsEntity.fromMap(
+                (e) => UserRoleApplicationPermissionsEntity.fromMap(
                   e as Map<String, dynamic>,
                 ),
               )
@@ -28,41 +28,45 @@ class UserRoleEntity {
     );
   }
 
-  // Helper method to update an definition within this role
+  // Helper method to update an application permission within this role
   UserRoleEntity copyWith({
     String? name,
-    List<UserRoleDefinitionsEntity>? definitions,
+    List<UserRoleApplicationPermissionsEntity>? appPermissions,
   }) {
     return UserRoleEntity(
       id: id,
       name: name ?? this.name,
-      definitions: definitions ?? this.definitions,
+      appPermissions: appPermissions ?? this.appPermissions,
     );
   }
 
-  /// 1. Adds a new definition to the list
-  UserRoleEntity addDefinition(UserRoleDefinitionsEntity newDefinition) {
-    if (definitions.contains(newDefinition)) {
+  /// 1. Adds a new application permission to the list
+  UserRoleEntity addDefinition(
+    UserRoleApplicationPermissionsEntity newAppPermission,
+  ) {
+    if (appPermissions.contains(newAppPermission)) {
       return this;
     }
 
-    return copyWith(definitions: [...definitions, newDefinition]);
+    return copyWith(appPermissions: [...appPermissions, newAppPermission]);
   }
 
-  /// 2. Replaces an existing definition by its ID
-  UserRoleEntity updateDefinition(UserRoleDefinitionsEntity updatedDefinition) {
-    final updatedList = definitions.map((attr) {
-      return attr.id == updatedDefinition.id ? updatedDefinition : attr;
+  /// 2. Replaces an existing app permission by its ID
+  UserRoleEntity updateAppPermission(
+    UserRoleApplicationPermissionsEntity updatedAppPermission,
+  ) {
+    final updatedList = appPermissions.map((attr) {
+      return attr.id == updatedAppPermission.id ? updatedAppPermission : attr;
     }).toList();
 
-    return copyWith(definitions: updatedList);
+    return copyWith(appPermissions: updatedList);
   }
 
-  /// 3. Removes an definition by its ID
-  UserRoleEntity removeDefinition(String definitionId) {
+  /// 3. Removes an application permission by its ID
+  UserRoleEntity removeAppPermission(String appPermissionId) {
     return copyWith(
-      definitions: definitions
-          .where((attr) => attr.id != definitionId)
+      appPermissions: appPermissions
+          .where((attr) => attr.id != appPermissionId)
           .toList(),
     );
   }
@@ -77,18 +81,20 @@ class UserRoleEntity {
   @override
   int get hashCode => id.hashCode;
 
-  /// Returns a line-separated string of all definitions
-  String getPermissiondefinitions() {
-    if (definitions.isEmpty) return "NO PERMISSION definitions";
+  /// Returns a line-separated string of all app permissions
+  String getAppPermissions() {
+    if (appPermissions.isEmpty) return "NO PERMISSION app Permissions";
 
-    return definitions.map((definition) => definition.toString()).join('\n');
+    return appPermissions
+        .map((appPermission) => appPermission.toString())
+        .join('\n');
   }
 
   @override
   String toString() => name;
 
   String bigView() {
-    return "$id\n$name\n${getPermissiondefinitions()}";
+    return "$id\n$name\n${getAppPermissions()}";
   }
 
   // Add this method inside your UserRoleEntity class
@@ -96,7 +102,7 @@ class UserRoleEntity {
     return {
       'user_role_id': id,
       'user_role_name': name,
-      'definitions': definitions.map((x) => x.toMap()).toList(),
+      'permissions': appPermissions.map((x) => x.toMap()).toList(),
     };
   }
 }
