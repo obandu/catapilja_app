@@ -15,4 +15,4 @@ part 'server/routers/router.dart';
 part 'utils/dateutils.dart';
 part 'utils/serverlog.dart';
 part 'entities/user_role_entity.dart';
-part 'entities/user_role_assignment_entity.dart';
+part 'entities/user_role_definition_entity.dart';

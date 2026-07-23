@@ -3,65 +3,66 @@ part of catapiljaapp;
 class UserRoleEntity {
   final String id;
   final String name;
-  final List<UserRoleAssignmentEntity> assignments;
+  final List<UserRoleDefinitionsEntity> definitions;
 
   UserRoleEntity({
     required this.id,
     required this.name,
-    this.assignments = const [],
+    this.definitions = const [],
   });
 
   factory UserRoleEntity.fromMap(Map<String, dynamic> map) {
     return UserRoleEntity(
       id: map['user_role_id'] as String,
       name: map['user_role_name'] as String,
-      // Maps nested assignments if they exist in the JSON
-      assignments:
-          (map['assignments'] as List<dynamic>?)
+      // Maps nested definitions if they exist in the JSON
+      definitions:
+          (map['definitions'] as List<dynamic>?)
               ?.map(
-                (e) =>
-                    UserRoleAssignmentEntity.fromMap(e as Map<String, dynamic>),
+                (e) => UserRoleDefinitionsEntity.fromMap(
+                  e as Map<String, dynamic>,
+                ),
               )
               .toList() ??
           [],
     );
   }
 
-  // Helper method to update an assignment within this role
+  // Helper method to update an definition within this role
   UserRoleEntity copyWith({
     String? name,
-    List<UserRoleAssignmentEntity>? assignments,
+    List<UserRoleDefinitionsEntity>? definitions,
   }) {
     return UserRoleEntity(
       id: id,
       name: name ?? this.name,
-      assignments: assignments ?? this.assignments,
+      definitions: definitions ?? this.definitions,
     );
   }
 
-  /// 1. Adds a new assignment to the list
-  UserRoleEntity addAssignment(UserRoleAssignmentEntity newAssignment) {
-    if (assignments.contains(newAssignment)) {
+  /// 1. Adds a new definition to the list
+  UserRoleEntity addDefinition(UserRoleDefinitionsEntity newDefinition) {
+    if (definitions.contains(newDefinition)) {
       return this;
     }
 
-    return copyWith(assignments: [...assignments, newAssignment]);
+    return copyWith(definitions: [...definitions, newDefinition]);
   }
 
-  /// 2. Replaces an existing assignment by its ID
-  UserRoleEntity updateAssignment(UserRoleAssignmentEntity updatedAssignment) {
-    final updatedList = assignments.map((attr) {
-      return attr.id == updatedAssignment.id ? updatedAssignment : attr;
+  /// 2. Replaces an existing definition by its ID
+  UserRoleEntity updateDefinition(UserRoleDefinitionsEntity updatedDefinition) {
+    final updatedList = definitions.map((attr) {
+      return attr.id == updatedDefinition.id ? updatedDefinition : attr;
     }).toList();
 
-    return copyWith(assignments: updatedList);
+    return copyWith(definitions: updatedList);
   }
 
-  /// 3. Removes an assignment by its ID
-  UserRoleEntity removeAssignment(String assignmentId) {
+  /// 3. Removes an definition by its ID
+  UserRoleEntity removeDefinition(String definitionId) {
     return copyWith(
-      assignments: assignments
-          .where((attr) => attr.id != assignmentId)
+      definitions: definitions
+          .where((attr) => attr.id != definitionId)
           .toList(),
     );
   }
@@ -76,18 +77,18 @@ class UserRoleEntity {
   @override
   int get hashCode => id.hashCode;
 
-  /// Returns a line-separated string of all assignments
-  String getPermissionAssignments() {
-    if (assignments.isEmpty) return "NO PERMISSION ASSIGNMENTS";
+  /// Returns a line-separated string of all definitions
+  String getPermissiondefinitions() {
+    if (definitions.isEmpty) return "NO PERMISSION definitions";
 
-    return assignments.map((assignment) => assignment.toString()).join('\n');
+    return definitions.map((definition) => definition.toString()).join('\n');
   }
 
   @override
   String toString() => name;
 
   String bigView() {
-    return "$id\n$name\n${getPermissionAssignments()}";
+    return "$id\n$name\n${getPermissiondefinitions()}";
   }
 
   // Add this method inside your UserRoleEntity class
@@ -95,7 +96,7 @@ class UserRoleEntity {
     return {
       'user_role_id': id,
       'user_role_name': name,
-      'assignments': assignments.map((x) => x.toMap()).toList(),
+      'definitions': definitions.map((x) => x.toMap()).toList(),
     };
   }
 }

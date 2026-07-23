@@ -1,6 +1,6 @@
 part of catapiljaapp;
 
-class UserRoleAssignmentEntity {
+class UserRoleDefinitionsEntity {
   final String id;
   final String roleId;
   final String appModuleId;
@@ -8,7 +8,7 @@ class UserRoleAssignmentEntity {
   final String appModuleName; // New
   final String appModuleDesc; // New
 
-  UserRoleAssignmentEntity({
+  UserRoleDefinitionsEntity({
     required this.id,
     required this.roleId,
     required this.appModuleId,
@@ -17,8 +17,8 @@ class UserRoleAssignmentEntity {
     required this.appModuleDesc,
   });
 
-  factory UserRoleAssignmentEntity.fromMap(Map<String, dynamic> map) {
-    return UserRoleAssignmentEntity(
+  factory UserRoleDefinitionsEntity.fromMap(Map<String, dynamic> map) {
+    return UserRoleDefinitionsEntity(
       id: map['user_role_assignment_id'] as String,
       roleId: map['user_role_id'] as String,
       appModuleId: map['app_module_id'] as String,
@@ -28,12 +28,12 @@ class UserRoleAssignmentEntity {
     );
   }
 
-  UserRoleAssignmentEntity copyWith({
+  UserRoleDefinitionsEntity copyWith({
     String? accessRight,
     String? appModuleName,
     String? appModuleDesc,
   }) {
-    return UserRoleAssignmentEntity(
+    return UserRoleDefinitionsEntity(
       id: id,
       roleId: roleId,
       appModuleId: appModuleId,
@@ -46,14 +46,14 @@ class UserRoleAssignmentEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserRoleAssignmentEntity &&
+      other is UserRoleDefinitionsEntity &&
           runtimeType == other.runtimeType &&
           appModuleId == other.appModuleId;
 
   @override
   int get hashCode => id.hashCode;
 
-  // Add this method inside your UserRoleAssignmentEntity class
+  // Add this method inside your UserRoleDefinitionsEntity class
   Map<String, dynamic> toMap() {
     return {
       'user_role_assignment_id': id,
