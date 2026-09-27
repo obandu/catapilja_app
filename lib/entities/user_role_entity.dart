@@ -17,7 +17,7 @@ class UserRoleEntity {
       name: map['user_role_name'] as String,
       // Maps nested appPermissions if they exist in the JSON
       appPermissions:
-          (map['permissions'] as List<dynamic>?)
+          (map['apppermissions'] as List<dynamic>?)
               ?.map(
                 (e) => UserRoleApplicationPermissionsEntity.fromMap(
                   e as Map<String, dynamic>,

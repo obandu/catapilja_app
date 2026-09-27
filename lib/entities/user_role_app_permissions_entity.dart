@@ -21,7 +21,7 @@ class UserRoleApplicationPermissionsEntity {
     Map<String, dynamic> map,
   ) {
     return UserRoleApplicationPermissionsEntity(
-      id: map['user_role_assignment_id'] as String,
+      id: map['user_role_app_permissions_id'] as String,
       roleId: map['user_role_id'] as String,
       appModuleId: map['app_module_id'] as String,
       accessRight: map['access_right'] as String,

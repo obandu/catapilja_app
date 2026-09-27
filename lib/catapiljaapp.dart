@@ -3,6 +3,7 @@ library catapiljaapp;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as httpClient;
 
 part 'cloudapp/cloudapp.dart';
@@ -15,4 +16,4 @@ part 'server/routers/router.dart';
 part 'utils/dateutils.dart';
 part 'utils/serverlog.dart';
 part 'entities/user_role_entity.dart';
-part 'entities/user_role_definition_entity.dart';
+part 'entities/user_role_app_permissions_entity.dart';
