@@ -41,7 +41,7 @@ class UserRoleEntity {
   }
 
   /// 1. Adds a new application permission to the list
-  UserRoleEntity addDefinition(
+  UserRoleEntity addPermission(
     UserRoleApplicationPermissionsEntity newAppPermission,
   ) {
     if (appPermissions.contains(newAppPermission)) {
@@ -102,7 +102,7 @@ class UserRoleEntity {
     return {
       'user_role_id': id,
       'user_role_name': name,
-      'permissions': appPermissions.map((x) => x.toMap()).toList(),
+      'apppermissions': appPermissions.map((x) => x.toMap()).toList(),
     };
   }
 }
