@@ -15,5 +15,6 @@ part 'server/handlers/httprequesthandler.dart';
 part 'server/routers/router.dart';
 part 'utils/dateutils.dart';
 part 'utils/serverlog.dart';
+part 'entities/user_entity.dart';
 part 'entities/user_role_entity.dart';
 part 'entities/user_role_app_permissions_entity.dart';
