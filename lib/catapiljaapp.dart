@@ -18,3 +18,4 @@ part 'utils/serverlog.dart';
 part 'entities/user_entity.dart';
 part 'entities/user_role_entity.dart';
 part 'entities/user_role_app_permissions_entity.dart';
+part 'entities/user_role_assignments_entity.dart';
